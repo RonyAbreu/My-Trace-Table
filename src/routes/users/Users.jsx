@@ -3,6 +3,7 @@ import { UserService } from './../../service/UserService';
 import Button from '../../components/button/Button';
 import { useNavigate } from 'react-router-dom';
 import Loading from './../../components/loading/Loading';
+import NavigateButton from '../../components/navigateButton/NavigateButton';
 
 function Users() {
     const userService = new UserService();
@@ -35,6 +36,7 @@ function Users() {
 
   return (
     <div className='background'>
+        <NavigateButton />
         <h1 className='title'>Selecione o Professor abaixo</h1>
 
         {users && users.length > 0 && users.map((user) => (

@@ -8,13 +8,15 @@ import Exercices from "./routes/exercises/Exercices.jsx";
 import Users from "./routes/users/Users.jsx";
 import Themes from "./routes/themes/Themes.jsx";
 import TraceTable from './routes/trace-table/TraceTable';
+import Home from "./routes/home/Home.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HashRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index path="/" element={<Users />} />
+        <Route index path="/" element={<Home />} />
+          <Route path="/teacher" element={<Users />} />
           <Route path="/about" element={<About />} />
           <Route path="/themes/:id" element={<Themes />} />
           <Route path="/exercices/:id" element={<Exercices />} />

@@ -11,7 +11,10 @@ function About() {
           ferramenta interativa e educacional, Diego concebeu a ideia do projeto
           e foi responsável por criar a interface inicial, imaginando uma
           plataforma que facilitasse o aprendizado e aprimorasse a prática dos
-          usuários.
+          usuários. Além disso, gostaríamos de destacar que muito do que foi
+          feito neste sistema se deve à pesquisa inicial feita no Trabalho de
+          Conclusão de Curso de <strong>Josinaldo Silva</strong>, que inspirou o TCC de Diego
+          Tavares.
         </p>
       </div>
 
@@ -35,10 +38,17 @@ function About() {
           O desenvolvimento da aplicação foi realizado por{" "}
           <strong>Ronyelison Abreu</strong>, que implementou e aperfeiçoou as
           funcionalidades, transformando a ideia inicial em uma ferramenta
-          prática e acessível para os usuários. Essa atividade fez parte de ações
-          do projeto <a href="https://apps4society.dcx.ufpb.br/" target="_blank">Apps4Society</a>, um projeto da UFPB-Campus IV, que tem
-          como objetivo construir aplicativos e sistemas que impactam
-          positivamente a sociedade.
+          prática e acessível para os usuários. Essa atividade fez parte de
+          ações do projeto{" "}
+          <a href="https://apps4society.dcx.ufpb.br/" target="_blank">
+            Apps4Society
+          </a>
+          , um projeto da UFPB-Campus IV, que tem como objetivo construir
+          aplicativos e sistemas que impactam positivamente a sociedade.
+          Gostaríamos também de agradecer pelas contribuições dadas por
+          diferentes professores, como Vanessa Dantas, Ana Liz e Tácito
+          Trindade, que levaram a várias decisões de projeto do sistema e
+          exercícios utilizados.
         </p>
       </div>
     </div>

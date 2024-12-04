@@ -1,63 +1,76 @@
-import { useNavigate, useParams } from "react-router-dom"
-import Button from "../../components/button/Button"
-import "./Exercices.css"
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../components/button/Button";
 import { useEffect, useState } from "react";
 import Loading from "../../components/loading/Loading";
-import { TraceTableService } from './../../service/TraceTableService';
+import { TraceTableService } from "./../../service/TraceTableService";
+import NavigateButton from "../../components/navigateButton/NavigateButton";
 
 function Exercices() {
-    const navigate = useNavigate();
-    const {id : themeId} = useParams();
+  const navigate = useNavigate();
+  const { id: themeId } = useParams();
 
-    const [exercices, setExercices] = useState([]);
+  const [exercices, setExercices] = useState([]);
 
-    const traceTableService = new TraceTableService();
-    const [loading, setLoading] = useState(false);
+  const traceTableService = new TraceTableService();
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-      fetchExercices();
-    }, []);
+  useEffect(() => {
+    fetchExercices();
+  }, []);
 
-    async function fetchExercices() {
-      try {
-        setLoading(true);
+  async function fetchExercices() {
+    try {
+      setLoading(true);
 
-        const themeResponse = await traceTableService.findAllTraceTablesByTheme(themeId);
+      const themeResponse = await traceTableService.findAllTraceTablesByTheme(
+        themeId
+      );
 
-        if(!themeResponse.success) {
-          setExercices([]);
-          return;
-        }
-
-        setExercices(themeResponse.data.content);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
+      if (!themeResponse.success) {
         setExercices([]);
+        return;
       }
-    }
 
-    function startExercice(exercice) {
-      const exercicesList = JSON.stringify(exercices);
-      localStorage.setItem("exercices", exercicesList);
-      localStorage.setItem("currentExerciceIndex", exercices.findIndex(e => e.id === exercice.id));
-      navigate("/trace-table");
-    }    
+      setExercices(themeResponse.data.content);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setExercices([]);
+    }
+  }
+
+  function startExercice(exercice) {
+    const exercicesList = JSON.stringify(exercices);
+    localStorage.setItem("exercices", exercicesList);
+    localStorage.setItem(
+      "currentExerciceIndex",
+      exercices.findIndex((e) => e.id === exercice.id)
+    );
+    navigate("/trace-table");
+  }
 
   return (
     <div className="background">
+      <NavigateButton />
       <h1 className="title">Selecione o exercício</h1>
-        {exercices && exercices.length > 0 && exercices.map((exercice) => (
+      {exercices &&
+        exercices.length > 0 &&
+        exercices.map((exercice) => (
           <div key={exercice.id}>
-            <Button text={exercice.exerciseName} action={() => startExercice(exercice)}/>
+            <Button
+              text={exercice.exerciseName}
+              action={() => startExercice(exercice)}
+            />
           </div>
         ))}
 
-        {loading && <Loading />}
+      {loading && <Loading />}
 
-        {!loading && exercices.length == 0 && <h2 className="title">O tema não possui exercícios cadastrados!</h2>}
+      {!loading && exercices.length == 0 && (
+        <h2 className="title">O tema não possui exercícios cadastrados!</h2>
+      )}
     </div>
-  )
+  );
 }
 
-export default Exercices
+export default Exercices;
