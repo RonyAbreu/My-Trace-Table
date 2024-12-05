@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { UserService } from './../../service/UserService';
+import { useEffect, useState } from 'react'
+import { UserService } from '../../service/UserService';
 import Button from '../../components/button/Button';
 import { useNavigate } from 'react-router-dom';
-import Loading from './../../components/loading/Loading';
+import Loading from '../../components/loading/Loading';
 import NavigateButton from '../../components/navigateButton/NavigateButton';
+import InfoBox from '../../components/infoBox/InfoBox';
 
-function Users() {
+function Teacher() {
     const userService = new UserService();
     const navigate = useNavigate();
 
@@ -52,4 +53,4 @@ function Users() {
   )
 }
 
-export default Users
+export default Teacher

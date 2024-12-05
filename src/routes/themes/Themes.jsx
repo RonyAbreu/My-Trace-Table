@@ -4,12 +4,15 @@ import { ThemeService } from "./../../service/ThemeService";
 import { useEffect, useState } from "react";
 import Loading from "../../components/loading/Loading";
 import NavigateButton from "../../components/navigateButton/NavigateButton";
+import InfoBox from "../../components/infoBox/InfoBox";
 
 function Themes() {
   const navigate = useNavigate();
   const { id: userId } = useParams();
 
   const [themes, setThemes] = useState([]);
+
+  const [creatorName, setCreatorName] = useState("");
 
   const themeService = new ThemeService();
   const [loading, setLoading] = useState(false);
@@ -29,7 +32,10 @@ function Themes() {
         return;
       }
 
-      setThemes(themeResponse.data.content);
+      const themesList = themeResponse.data.content;
+      const creatorName = themesList[0].creator.name
+      setThemes(themesList);
+      setCreatorName(creatorName);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -57,6 +63,8 @@ function Themes() {
       {!loading && themes.length == 0 && (
         <h2>O usuário não possui temas cadastrados!</h2>
       )}
+
+      <InfoBox title="Professor" content={creatorName} />
     </div>
   );
 }

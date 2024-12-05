@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/loading/Loading";
 import { TraceTableService } from "./../../service/TraceTableService";
 import NavigateButton from "../../components/navigateButton/NavigateButton";
+import InfoBox from "./../../components/infoBox/InfoBox";
+import { ThemeService } from "./../../service/ThemeService";
 
 function Exercices() {
   const navigate = useNavigate();
   const { id: themeId } = useParams();
 
   const [exercices, setExercices] = useState([]);
+  const [themeName, setThemeName] = useState("");
 
   const traceTableService = new TraceTableService();
+  const themeService = new ThemeService();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,20 +26,26 @@ function Exercices() {
     try {
       setLoading(true);
 
-      const themeResponse = await traceTableService.findAllTraceTablesByTheme(
+      const traceTableList = await traceTableService.findAllTraceTablesByTheme(
         themeId
       );
 
-      if (!themeResponse.success) {
+      const themeResponse = await themeService.findThemeById(themeId);
+
+      if (!traceTableList.success || !themeResponse.success) {
         setExercices([]);
         return;
       }
 
-      setExercices(themeResponse.data.content);
-      setLoading(false);
+      const exercicesList = traceTableList.data.content;
+      const creatorName = "";
+      setExercices(exercicesList);
+      setThemeName(creatorName);
     } catch (error) {
       console.log(error);
       setExercices([]);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -69,6 +79,8 @@ function Exercices() {
       {!loading && exercices.length == 0 && (
         <h2 className="title">O tema não possui exercícios cadastrados!</h2>
       )}
+
+      <InfoBox title="Tema" content={themeName} />
     </div>
   );
 }

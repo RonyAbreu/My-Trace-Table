@@ -1,11 +1,12 @@
 import "./SelectCode.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ThemeService } from "./../../service/ThemeService";
 import { TraceTableService } from "./../../service/TraceTableService";
+import AlertBox from "../alertBox/AlertBox";
 
 function SelectCode({ setSelectCode }) {
   const [themeId, setThemeId] = useState("");
+  const [showAlertBox, setAlertBox] = useState(false);
 
   const traceTableService = new TraceTableService();
 
@@ -17,10 +18,10 @@ function SelectCode({ setSelectCode }) {
         await traceTableService.findAllTraceTablesByTheme(themeId);
 
       if (!traceTableResponse.success) {
-        alert(traceTableResponse.message);
+        setAlertBox(true);
         return;
       }
-      
+
       navigate(`/exercices/${themeId}`);
     } catch (error) {
       console.error(error);
@@ -35,7 +36,8 @@ function SelectCode({ setSelectCode }) {
         </button>
         <h2>Digite o código do tema</h2>
         <input
-          type="text"
+          min={1}
+          type="number"
           placeholder="Insira o código aqui"
           value={themeId}
           required
@@ -49,6 +51,10 @@ function SelectCode({ setSelectCode }) {
           Inserir
         </button>
       </form>
+
+      {showAlertBox && (
+        <AlertBox setAlertBox={setAlertBox} text="Tema não encontrado!" />
+      )}
     </div>
   );
 }

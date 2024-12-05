@@ -38,4 +38,8 @@ export class ThemeService {
   findThemesByUser(userId) {
     return this.handleRequest("get", `/theme/user/${userId}`)
   }
+
+  findThemeById(themeId) {
+    return this.handleRequest("get", `/theme/${themeId}`)
+  }
 }
