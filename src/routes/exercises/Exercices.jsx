@@ -38,7 +38,7 @@ function Exercices() {
       }
 
       const exercicesList = traceTableList.data.content;
-      const creatorName = "";
+      const creatorName = themeResponse.data.name;
       setExercices(exercicesList);
       setThemeName(creatorName);
     } catch (error) {
